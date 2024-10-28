@@ -76,18 +76,46 @@ var total = 0;
 
 // Exercise 1
 function buy(id) {
-    // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cart array
+        // 1. Trobar el producte amb l'ID indicat a l'array products
+        let product = products.find(p => p.id === id);
+
+        // 2. Comprovar si el producte ja es troba al carret
+        let productInCart = cart.find(item => item.id === id);
+
+        if (productInCart) {
+            // 3. Si el producte ja es troba al carret, incrementem la seva quantit
+            productInCart.quantity++;
+            console.log(`producte ${productInCart.name} update to quantity: ${productInCart.quantity}`);
+        } else {
+            // 4. Si no hi és, afegim el producte al carret amb quantity inicial a 1
+            cart.push({ ...product, quantity: 1 });
+            console.log(`producte ${product.name} afegit al carrito`);
+        }
+    
+        console.log(cart); // Per verificar l'array cart després de l'operació
 }
 
 // Exercise 2
 function cleanCart() {
+
+    cart = [];
+    console.log('Cart has been emptied:', cart);
 
 }
 
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
+   // Inicialitzem la variable total a 0
+   total = 0;
+
+   // Recorrem l'array cart per calcular el preu total
+   for (let item of cart) {
+       total += item.price * item.quantity;
+   }
+
+   console.log("Preu total del caret:", total);
+   return total;
 }
 
 // Exercise 4
